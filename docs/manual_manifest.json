@@ -1,0 +1,36 @@
+{
+  "site_root": "https://jason-vaughan.github.io/barcoach-assets/",
+  "pages": [
+    {
+      "file": "bookmarks.htm",
+      "title": "Bookmarks",
+      "data_json": "page_data/bookmarks.json"
+    },
+    {
+      "file": "content-fixed.htm",
+      "title": "R5905948_14_UserGuide HTML",
+      "data_json": "page_data/content-fixed.json"
+    },
+    {
+      "file": "content.htm",
+      "title": "R5905948_14_UserGuide HTML",
+      "data_json": "page_data/content.json"
+    },
+    {
+      "file": "headings.htm",
+      "title": "Headings",
+      "data_json": "page_data/headings.json"
+    },
+    {
+      "file": "index.html",
+      "title": "BarCoach Devices Guide",
+      "data_json": "page_data/index.json"
+    }
+  ],
+  "assets": {
+    "image_index": "image_index.json"
+  },
+  "version": {
+    "generated": "2025-09-30T04:32:28Z"
+  }
+}

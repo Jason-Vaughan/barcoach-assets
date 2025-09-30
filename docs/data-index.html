@@ -9,25 +9,29 @@
     h1 { margin-bottom: .5rem; }
     code, a { font-family: ui-monospace, Menlo, Consolas, monospace; }
     ul { margin-top: .75rem; }
+    li { margin: .25rem 0; }
   </style>
 </head>
 <body>
   <h1>BarCoach Data Index</h1>
-  <p>Jump links to JSON used by BarCoach Gen2.</p>
+  <p>Absolute links to JSON used by BarCoach Gen2.</p>
 
-  <h2>Core</h2>
+  <h2>Primary (GitHub Pages)</h2>
   <ul>
-    <li><a href="manual_manifest.json">manual_manifest.json</a></li>
-    <li><a href="image_index.json">image_index.json</a></li>
+    <li><a id="manifest-primary" href="https://jason-vaughan.github.io/barcoach-assets/manual_manifest.json">manual_manifest.json</a></li>
+    <li><a id="imageindex-primary" href="https://jason-vaughan.github.io/barcoach-assets/image_index.json">image_index.json</a></li>
+    <li><a id="pd-bookmarks" href="https://jason-vaughan.github.io/barcoach-assets/page_data/bookmarks.json">page_data/bookmarks.json</a></li>
+    <li><a id="pd-content-fixed" href="https://jason-vaughan.github.io/barcoach-assets/page_data/content-fixed.json">page_data/content-fixed.json</a></li>
+    <li><a id="pd-content" href="https://jason-vaughan.github.io/barcoach-assets/page_data/content.json">page_data/content.json</a></li>
+    <li><a id="pd-headings" href="https://jason-vaughan.github.io/barcoach-assets/page_data/headings.json">page_data/headings.json</a></li>
+    <li><a id="pd-index" href="https://jason-vaughan.github.io/barcoach-assets/page_data/index.json">page_data/index.json</a></li>
   </ul>
 
-  <h2>Per-page JSON</h2>
+  <h2>Fallback (Raw GitHub)</h2>
   <ul>
-    <li><a href="page_data/bookmarks.json">page_data/bookmarks.json</a></li>
-    <li><a href="page_data/content-fixed.json">page_data/content-fixed.json</a></li>
-    <li><a href="page_data/content.json">page_data/content.json</a></li>
-    <li><a href="page_data/headings.json">page_data/headings.json</a></li>
-    <li><a href="page_data/index.json">page_data/index.json</a></li>
+    <li><a id="manifest-raw" href="https://raw.githubusercontent.com/Jason-Vaughan/barcoach-assets/main/docs/manual_manifest.json">manual_manifest.json (raw)</a></li>
+    <li><a id="imageindex-raw" href="https://raw.githubusercontent.com/Jason-Vaughan/barcoach-assets/main/docs/image_index.json">image_index.json (raw)</a></li>
+    <li><a id="pd-content-fixed-raw" href="https://raw.githubusercontent.com/Jason-Vaughan/barcoach-assets/main/docs/page_data/content-fixed.json">page_data/content-fixed.json (raw)</a></li>
   </ul>
 </body>
 </html>

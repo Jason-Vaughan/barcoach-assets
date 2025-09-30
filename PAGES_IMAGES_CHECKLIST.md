@@ -85,4 +85,22 @@ done
 
 ---
 
+## Appendix: No-comments test block (safe for zsh)
+
+Use this block to verify GitHub Pages is serving your site and images correctly:
+
+```bash
+for u in \
+"https://jason-vaughan.github.io/barcoach-assets/" \
+"https://jason-vaughan.github.io/barcoach-assets/bookmarks.htm" \
+"https://jason-vaughan.github.io/barcoach-assets/headings.htm" \
+"https://jason-vaughan.github.io/barcoach-assets/content.htm" \
+"https://jason-vaughan.github.io/barcoach-assets/content-fixed.htm" \
+"https://jason-vaughan.github.io/barcoach-assets/images/Image_001.jpg"; do
+  code=$(curl -s -o /dev/null -w "%{http_code}" "$u")
+  echo "$code  $u"
+done
+
+---
+
 ✅ Done — GitHub Pages should now serve all images correctly.

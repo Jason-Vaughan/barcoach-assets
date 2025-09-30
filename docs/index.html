@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>BarCoach Devices Guide</title>
+  <style>
+    html, body { margin:0; padding:0; height:100%; }
+    .wrap { display:flex; height:100vh; width:100vw; }
+    .nav { width:320px; min-width:240px; border-right:1px solid #ddd; display:flex; flex-direction:column; }
+    .pane { border:0; width:100%; }
+    .pane.toc { height:45%; }
+    .pane.headings { height:55%; border-top:1px solid #eee; }
+    .content { flex:1; }
+    .content .pane { height:100%; }
+    @media (max-width: 900px){
+      .nav { width: 45vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <iframe class="pane toc" src="bookmarks.htm"></iframe>
+      <iframe class="pane headings" src="headings.htm"></iframe>
+    </div>
+    <div class="content">
+      <!-- IMPORTANT: name="content" so existing target="content" links work -->
+      <iframe class="pane" name="content" src="content.htm"></iframe>
+    </div>
+  </div>
+</body>
+</html>

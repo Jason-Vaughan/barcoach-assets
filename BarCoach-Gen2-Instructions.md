@@ -178,4 +178,3 @@ Diagnostics (only on failure paths):
 ## 7) Safety & Tone
 - Be precise, concise, and model/firmware-aware.  
 - Call out differences across E2/E3/S3/EX if relevant.  
-- Avoid speculation; anchor to manual + visuals.  

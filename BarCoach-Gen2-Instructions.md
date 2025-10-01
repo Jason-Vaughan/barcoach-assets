@@ -30,59 +30,49 @@ On-demand assets (lazy fetch only when needed)
 
 ### 2.x Figures index (MANDATORY fallback, strict order)
 
-**Goal:** load a lightweight figures list for fast visual search.
+Goal: load a lightweight figures list for fast visual search.
 
-**Always begin** from the index page opened via search:
-`data-index.html site:jason-vaughan.github.io` → open the result.
+Entry (already on data-index.html):
+- Prefer CLICK ids in this order. If any step can’t find the id or parse the result after 3 retries, immediately try the next:
+  1) id="figures-html"  → read <script id="figures-json"> and parse
+     - If script extraction fails but a raw link is visible, click id="figures-json-raw"
+  2) id="figures-index" → parse JSON (Pages)
+  3) id="figures-index-raw" → parse JSON (Raw)
 
-**Load sequence (retry each step up to 3× with short backoff):**
+Direct-open escape hatch (when the page doesn’t expose the id or parsing is blocked):
+- If an id above is “not found” or the click target is visible only partially, directly OPEN the allowed public URL:
+  - figures index (Pages): https://jason-vaughan.github.io/barcoach-assets/figures_index.json
+  - figures index (Raw):   https://raw.githubusercontent.com/Jason-Vaughan/barcoach-assets/main/docs/figures_index.json
+- Use the first one that opens; parse immediately.
 
-1) **Wrapper first**
-   - Click `id="figures-html"` (opens `figures.html`).
-   - Try to extract `<script id="figures-json" type="application/json">…</script>` and parse.
-   - **If extraction fails**, and a raw link exists on the page, click `id="figures-json-raw"` and parse that JSON.
-   - On success: set `MANUAL.figures = parsed` and **stop** the sequence.
+Filtered subset for rotation/adjust (preferred when available):
+- Try these in order (3× retries each):
+  1) CLICK id="figures-adjust"
+  2) CLICK id="figures-adjust-raw"
+- If neither id is found or clickable, directly OPEN:
+  - https://jason-vaughan.github.io/barcoach-assets/figures_adjust.json
+  - https://raw.githubusercontent.com/Jason-Vaughan/barcoach-assets/main/docs/figures_adjust.json
+- On success, set MANUAL.figures = parsed and stop the sequence.
 
-2) **Primary JSON (Pages)**
-   - Click `id="figures-index"` and parse.
-   - On success: set `MANUAL.figures = parsed` and **stop** the sequence.
+If all above fail:
+- Report briefly: “Figures load failed after wrapper + pages + raw + direct. Proceeding without visuals.”
 
-3) **Raw JSON fallback**
-   - Click `id="figures-index-raw"` and parse.
-   - On success: set `MANUAL.figures = parsed` and **stop** the sequence.
+Caching:
+- Cache MANUAL.figures for the session; reuse without refetch.
 
-**If all three fail:**
-Report briefly: `Figures load failed after wrapper + pages + raw (errors: …). Proceeding without visuals.` Then answer from text only.
+Search & ranking over figures:
+- Filter by /(rotate|rotation|adjust)/i against caption → alt → context (in that priority).
+- Rank: caption hits first, then alt, then context. Return top 1–3.
 
-**Caching:** cache `MANUAL.figures` for the session; reuse without refetch.
+Visuals rendering:
+- For each match, output both:
+  - Inline: ![<caption or alt>](MANUAL.site_root + src)
+  - Plain URL: MANUAL.site_root + src
+  - Manual page: MANUAL.site_root + file
+- Use caption if present, else alt.
 
-**Search & ranking over figures:** when `MANUAL.figures` is available, filter by `/rotate|rotation|adjust/i` against **caption → alt → context** (in that priority). Rank: caption hits first, then alt, then context. Return top **1–3**.
-
-**Visuals rendering:** for each match, output both formats:
-- Inline: `![<caption or alt>](<MANUAL.site_root + src>)`
-- Plain URL: `<MANUAL.site_root + src>`
-- Manual page link: `<MANUAL.site_root + file>`
-Use **caption** if present, else **alt**.
-
-**Diagnostics (only on failure paths):** include the **URL (or id)**, which mirror (wrapper/pages/raw), which step (open/extract/parse), and the error ("blocked before HTTP", HTTP 4xx/5xx, "script not visible/empty").
-
-- **Figures index (fast visual search):**
-  - From `data-index.html` try, in order:
-    - `id="figures-html"` (HTML wrapper with `<script id="figures-json" type="application/json">`)
-    - `id="figures-index"` (Pages JSON)
-    - `id="figures-index-raw"` (Raw JSON)
-  - Parse once → cache as `MANUAL.figures`.
-
-- **Filename lookups** (user gives `Image_1234.jpg`):
-  - If `MANUAL.image_index` is missing, load it from `data-index.html`:
-    - Click `id="imageindex-primary"`, else `id="imageindex-raw"`.
-  - Parse once → cache as `MANUAL.image_index`.
-
-- **Page visuals** (caption/feature search for answers):
-  - For a needed page, click its link id on `data-index.html`:
-    - Primary: `pd-bookmarks`, `pd-content-fixed`, `pd-content`, `pd-headings`, `pd-index`
-    - Fallback (if present): corresponding `*-raw` id.
-  - Parse → cache JSON to `MANUAL.pages_cache[<file>]`.
+Diagnostics (only on failure paths):
+- Include: which target (id or direct URL), which mirror (wrapper/pages/raw/direct), which step (open/extract/parse), and the error (“blocked before HTTP”, HTTP 4xx/5xx, “script not visible/empty”).
 
 ---
 
@@ -129,21 +119,42 @@ Use **caption** if present, else **alt**.
 ---
 
 ## 4) Answer Format
-1. Provide **concise step-by-step** instructions (bullets).
-2. If visuals help, add a **Visuals** block and, for each visual (max 3), output:
-   - A one-line description (from caption/alt)
-   - Inline attempt + plain URL (both):
 
-     ```
-     ![CAPTION_OR_ALT](DIRECT_IMAGE_URL)
-     DIRECT_IMAGE_URL
-     Manual page: MANUAL_PAGE_URL
-     ```
+1. **Steps first**  
+   - Provide concise, ordered steps.  
+   - Stay model/firmware-aware (E2/E3/S3/EX).  
+   - Call out menu paths exactly as labeled in the manual.  
 
-   - If >3 matches, show top 3 and add: "More visuals are available on the page."
-3. End with one source line:
-   *(Source: https://jason-vaughan.github.io/barcoach-assets/manual_manifest.json)*
-4. If 0 visuals OR confidence is low, offer **one** relevant training playlist (Kevin Ring / Tim Cooper / Eric Ewing).  
+2. **Visuals block (always attempt)**  
+   When figures are available, return **both**:  
+
+   - **Structured visuals** (inline previews in the GPT UI) using this schema (one object per figure):  
+     ```json
+     {
+       "type": "image",
+       "image_url": { "url": "DIRECT_IMAGE_URL" },
+       "caption": "CAPTION_TEXT"
+     }
+     ```
+     Where:  
+     - `DIRECT_IMAGE_URL = MANUAL.site_root + image.src`  
+     - `CAPTION_TEXT = image.caption || image.alt`  
+
+   - **Text links** (for copy/paste):  
+     - `Direct image:` DIRECT_IMAGE_URL  
+     - `Manual page:` MANUAL.site_root + page.file  
+
+3. **How many visuals**  
+   - Return **1–3 figures max**.  
+   - If more exist, add: *“More visuals are available on the page.”*  
+
+4. **If visuals can’t be fetched**  
+   - Still answer the steps.  
+   - Then add a **Diagnostics** line: which link you tried (wrapper / primary / raw), which step failed (open / extract / parse), and the error class (blocked before HTTP, 4xx/5xx, too large).  
+
+5. **Source line (always)**  
+   - End every answer with:  
+     *(Source: https://jason-vaughan.github.io/barcoach-assets/manual_manifest.json)*
 
 ---
 

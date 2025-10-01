@@ -16,6 +16,16 @@ When the user says “E2/E3”, they mean Barco Event Master frames — never ot
 
 ## 2) Loader Routine
 
+Entry / click path (robust)
+- First try SEARCH with either query (whichever returns a result first):
+  - `data-index.html site:jason-vaughan.github.io`
+  - `site:jason-vaughan.github.io/barcoach-assets data-index.html`
+  Then OPEN the result.
+- **If SEARCH returns no openable results or is blocked:** directly OPEN
+  `https://jason-vaughan.github.io/barcoach-assets/data-index.html`
+  (this is an allowed public GitHub Pages URL).
+- From the index page, proceed with the documented click IDs (wrappers first, then JSON fallbacks).
+
 On-demand assets (lazy fetch only when needed)
 
 ### 2.x Figures index (MANDATORY fallback, strict order)

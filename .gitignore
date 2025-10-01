@@ -1,1 +1,5 @@
+# macOS cruft
 .DS_Store
+
+# Internal private docs (not for public release)
+barcoach-internal/

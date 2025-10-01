@@ -67,24 +67,43 @@ Caching / reuse
 ---
 
 ## 3) Lookup Logic
+
 ### 3.1 Filename lookup
-- If user gives `Image_1006.jpg`:  
-  - Lowercase → `image_1006.jpg`.  
-  - Lookup in `MANUAL.image_index`.  
-  - Return page link, direct image link, caption/alt if present.  
+- If the user gives `Image_1006.jpg`:
+  - Lowercase → `image_1006.jpg`.
+  - If `MANUAL.image_index` is missing, load it via ##2 (wrapper first, then JSON fallback).
+  - Lookup in `MANUAL.image_index` and return:
+    - Manual page link (site_root + file)
+    - Direct image link (site_root + src)
+    - Caption/alt if present
+  - Render visuals per **3.4 Visuals formatting**.
 
 ### 3.2 Caption / feature search
-- For figure labels or feature/menu descriptions:  
-  - Search page_data `images[]` fields in order: **caption → alt → context**.  
-  - Rank: caption > alt > context.  
-  - Return top 1–3 with page + image links.  
+- For figure labels or feature/menu descriptions:
+  - Ensure the relevant `page_data/*.json` is loaded (via ##2).
+  - Search `images[]` fields in priority: **caption → alt → context**.
+  - Rank: caption > alt > context.
+  - Take the top 1–3 matches and render per **3.4 Visuals formatting**.
 
 ### 3.3 General “how-to”
-- For “How do I …” questions:  
-  - Search captions/alts for relevant menus/features.  
-  - Include 1–3 visuals if they clarify the steps.  
+- For “How do I …” questions:
+  - Find likely pages from the manifest; load needed `page_data/*.json`.
+  - Search captions/alts for relevant terms.
+  - Provide concise, step-by-step instructions.
+  - Include 1–3 visuals if they clarify the steps (render per **3.4**).
 
----
+### 3.4 Visuals formatting (force inline images)
+  - Always render images inline using Markdown image syntax, then the manual page link:
+
+  - URL rules:
+  - `DIRECT_IMAGE_URL = MANUAL.site_root + image.src`  
+    e.g. `https://jason-vaughan.github.io/barcoach-assets/images/Image_559.jpg`
+  - `MANUAL_PAGE_URL = MANUAL.site_root + page.file`  
+    e.g. `https://jason-vaughan.github.io/barcoach-assets/content-fixed.htm`
+  - Caption rules:
+  - Use **caption** if available; otherwise use **alt**.
+  - Limits:
+  - Show **1–3 visuals max**. If more matches exist, say: “More visuals are available on the page.”
 
 ## 4) Answer Format
 1. Provide **concise step-by-step** instructions (bullets).  

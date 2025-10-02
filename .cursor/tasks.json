@@ -1,0 +1,56 @@
+{
+  // Cursor/VS Code-style tasks: one-click buttons for your git macros
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🔧 What changed (status + pre-commit)",
+      "type": "shell",
+      "command": "zsh",
+      "args": ["-lc", "gwhat"],
+      "problemMatcher": []
+    },
+    {
+      "label": "🌐 Endpoint Check (GitHub Pages)",
+      "type": "shell",
+      "command": "zsh",
+      "args": ["-lc", "gcheck"],
+      "problemMatcher": []
+    },
+    {
+      "label": "🧪 Pre-commit (all files)",
+      "type": "shell",
+      "command": "zsh",
+      "args": ["-lc", "pre-commit run --all-files"],
+      "problemMatcher": []
+    },
+    {
+      "label": "🧹 Pre-commit autofix + stage",
+      "type": "shell",
+      "command": "zsh",
+      "args": ["-lc", "pre-commit run --all-files || true; git add -A"],
+      "problemMatcher": []
+    },
+    {
+      "label": "📝 Quick Commit (ask message) → Push",
+      "type": "shell",
+      "command": "zsh",
+      "args": ["-lc", "gpush \"${input:commitMsg}\""],
+      "problemMatcher": []
+    },
+    {
+      "label": "🚀 Fast Push (chore: quick push)",
+      "type": "shell",
+      "command": "zsh",
+      "args": ["-lc", "gpush 'chore: quick push'"],
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "commitMsg",
+      "type": "promptString",
+      "description": "Commit message",
+      "default": "chore: quick commit"
+    }
+  ]
+}

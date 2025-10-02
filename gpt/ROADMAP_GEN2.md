@@ -35,12 +35,12 @@
 - Images: `…/images/*`
 
 ### Gen2 Answer Format
-1. Concise steps  
-2. **Visuals** (when helpful)  
-   - Caption (or alt)  
-   - Direct image **link** (clickable)  
-   - Manual page **link** (clickable)  
-3. If >3 matches: return top 3 and note “More visuals on the page.”  
+1. Concise steps
+2. **Visuals** (when helpful)
+   - Caption (or alt)
+   - Direct image **link** (clickable)
+   - Manual page **link** (clickable)
+3. If >3 matches: return top 3 and note “More visuals on the page.”
 4. Source line: `https://jason-vaughan.github.io/barcoach-assets/manual_manifest.json`
 
 ### Gen2 Test Matrix (last run)

@@ -6,3 +6,36 @@ barcoach-internal/
 
 # Deprecated / archived files
 archive/
+
+# Local dev checklists
+TODO_GEN2.md
+
+# Secrets & env
+.env
+.env.*
+*.env
+*.secret
+*.secrets
+*.key
+*.pem
+*.p12
+*.crt
+*.cert
+*. keystore
+*.kc
+*.asc
+*.gpg
+*.pw
+*.token
+*.credentials
+*.bak
+
+# Common config copies
+*_local.*
+*local*.json
+*local*.yaml
+*local*.yml
+
+# Python cache
+__pycache__/
+*.pyc

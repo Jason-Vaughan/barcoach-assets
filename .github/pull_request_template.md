@@ -25,9 +25,9 @@ curl -I https://jason-vaughan.github.io/barcoach-assets/figures_adjust.json
 ---
 
 ## Contributor Notes
-- This repository (Gen1 / Gen2) is public for transparency and learning.  
-- Internal planning docs, Cursor configs, and Gen3 (monetized) will remain private.  
-- Please avoid including secrets or credentials in PRs.  
+- This repository (Gen1 / Gen2) is public for transparency and learning.
+- Internal planning docs, Cursor configs, and Gen3 (monetized) will remain private.
+- Please avoid including secrets or credentials in PRs.
 - PRs are welcome for:
   - Bug fixes
   - Loader improvements

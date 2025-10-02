@@ -29,7 +29,7 @@ This guide explains how to update the **Custom GPT** safely without breaking the
 1. SEARCH for either query and OPEN the first result:
    - `data-index.html site:jason-vaughan.github.io`
    - `site:jason-vaughan.github.io/barcoach-assets data-index.html`
-2. If SEARCH yields nothing usable, directly OPEN  
+2. If SEARCH yields nothing usable, directly OPEN
    `https://jason-vaughan.github.io/barcoach-assets/data-index.html`
 
 **Manifest (wrapper first, JSON fallback):**
@@ -53,7 +53,7 @@ This guide explains how to update the **Custom GPT** safely without breaking the
 
 **Retries & diagnostics:**
 - Retry each fetch up to 3×, then move to the next mirror (wrapper → primary → raw).
-- If **manifest** fails after all:  
+- If **manifest** fails after all:
   `⚠️ Manual manifest fetch failed after retries. I will answer from memory only.`
 - When a fetch fails, briefly report: URL/mirror/step/error.
 
@@ -93,11 +93,11 @@ This guide explains how to update the **Custom GPT** safely without breaking the
 ---
 
 ## 6) Sanity test prompts (run after any edit)
-1. **Manifest parse:**  
+1. **Manifest parse:**
    “Report site_root and pages count from the manifest.”
-2. **Figures quick search:**  
+2. **Figures quick search:**
    “Show 2 visuals that mention adjust or rotate.”
-3. **How-to with visuals:**  
+3. **How-to with visuals:**
    “How do I rotate an input on E2? Include 1–3 relevant visuals.”
 
 ---

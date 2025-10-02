@@ -39,3 +39,6 @@ TODO_GEN2.md
 # Python cache
 __pycache__/
 *.pyc
+
+# VS Code local config
+.vscode/

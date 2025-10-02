@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "scripts": {
+    "bc:validate": "node scripts/validate_urls.js",
+    "bc:build-index": "node scripts/build_index.js",
+    "bc:git-status": "git status --short",
+    "bc:git-push": "git push origin main",
+    "bc:open-docs": "open docs/index.html || open docs/content-fixed.htm",
+    "bc:check": "zsh -ic 'source scripts/git_macros.zsh; gcheck'",
+    "bc:what": "zsh -ic 'source scripts/git_macros.zsh; gwhat'",
+    "bc:push": "zsh -ic 'source scripts/git_macros.zsh; gpush \"$@\"' --"
+  }
+}
